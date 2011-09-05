@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Resque::MailQueue::VERSION
   s.authors     = ["Scott Watermasysk"]
   s.email       = ["scottwater@gmail.com"]
-  s.homepage    = "http://www.scottw.com"
-  s.summary     = %q{Quickly enqueue action_mailer mails in resque}
-  s.description = %q{See summary}
+  s.homepage    = "https://github.com/scottwater/resque_mail_queue"
+  s.summary     = 'Simple asynchronous emails with Resque'
+  s.description = 'Simple asynchronous emails with Resque'
 
   s.rubyforge_project = "resque_mail_queue"
 
