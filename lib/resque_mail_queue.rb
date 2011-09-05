@@ -1,4 +1,5 @@
 require 'resque'
+require 'action_mailer'
 
 module Resque
   module MailQueue
@@ -7,7 +8,7 @@ module Resque
     extend self
 
     def queue
-      :default
+      :mail
     end
 
     def perform(options = {})
@@ -37,6 +38,10 @@ module Resque
 
     end
 
-    VERSION = '0.1.0'
+    VERSION = '0.1.2'
   end
+end
+
+class ActionMailer::Base
+  extend Resque::MailQueue
 end
