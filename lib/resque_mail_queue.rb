@@ -1,5 +1,9 @@
+require 'resque'
+
 module Resque
   module MailQueue
+       
+    include Resque::Helpers 
     extend self
 
     def queue
@@ -7,11 +11,9 @@ module Resque
     end
 
     def perform(options = {})
-      options = options.with_indifferent_access
-
-      mailer = options[:klass].constantize
-      method = options[:method]
-      mailer.send(method, *options[:args]).deliver
+      mailer = constantize(options['klass'])
+      method = options['method']
+      mailer.send(method, *options['args']).deliver
     end
 
     def enqueue()
@@ -26,8 +28,8 @@ module Resque
 
       def method_missing(m, *args, &block)
         if @klass.respond_to? m
-          options = {:klass => @klass.to_s, :method => m, :args => args}
-          Resque.enqueue(MailQueue, options)
+          options = {'klass' => @klass.to_s, 'method' => m, 'args' => args}
+          Resque.enqueue(@klass, options)
         else
           super
         end
@@ -35,6 +37,6 @@ module Resque
 
     end
 
-    VERSION = '0.0.1'
+    VERSION = '0.0.10'
   end
 end
