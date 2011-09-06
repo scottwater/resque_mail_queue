@@ -29,7 +29,7 @@ Then anytime you want to push an email asynchronously add _enqueue_ before the m
 	
 ## Why use this instead of ResqueMailer
 
-I initially started using [ResqueMailer](https://github.com/zapnap/resque_mailer) and it worked well. However, I preferred being more explicit (and simple) on when emails where being sent asynchronously (by calling enqueue).
+I initially started using [ResqueMailer](https://github.com/zapnap/resque_mailer) and it worked well. However, I preferred being more explicit (and simple) on when emails were sent asynchronously (by calling enqueue).
 
 More clearly, if ResqueMailer works for you and you like it, stick with it. 
 
