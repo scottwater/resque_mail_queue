@@ -23,7 +23,7 @@ describe Resque::MailQueue do
   
   it 'should find a dummy mail in the default queue' do 
     DumbMailer.enqueue.send_mail(3)
-    DumbMailer.should have_queued('klass' => 'DumbMailer', 'method' => :send_mail, 'args' => [3]).in(:default)
+    DumbMailer.should have_queued('klass' => 'DumbMailer', 'method' => :send_mail, 'args' => [3]).in(:mail)
   end
   
   it 'should be able to override the queue (not default)' do 
