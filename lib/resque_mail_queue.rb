@@ -27,9 +27,9 @@ module Resque
         @klass = klass
       end
 
-      def method_missing(m, *args, &block)
-        if @klass.respond_to? m
-          options = {'klass' => @klass.to_s, 'method' => m, 'args' => args}
+      def method_missing(method, *args, &block)
+        if @klass.respond_to? method
+          options = {'klass' => @klass.to_s, 'method' => method, 'args' => args}
           Resque.enqueue(@klass, options)
         else
           super
