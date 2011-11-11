@@ -29,8 +29,11 @@ module Resque
 
       def method_missing(method, *args, &block)
         if @klass.respond_to? method
-          options = {'klass' => @klass.to_s, 'method' => method, 'args' => args}
-          Resque.enqueue(@klass, options)
+          self.class.send :define_method, method do |args|
+            options = {'klass' => @klass.to_s, 'method' => method, 'args' => args}
+            Resque.enqueue(@klass, options)
+          end
+          self.send(method, args)
         else
           super
         end
