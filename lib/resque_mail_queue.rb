@@ -3,8 +3,8 @@ require 'action_mailer'
 
 module Resque
   module MailQueue
-       
-    include Resque::Helpers 
+
+    include Resque::Helpers
     extend self
 
     def queue
