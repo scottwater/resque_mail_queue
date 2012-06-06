@@ -26,6 +26,11 @@ describe Resque::MailQueue do
     DumbMailer.should have_queued('klass' => 'DumbMailer', 'method' => :send_mail, 'args' => [3]).in(:mail)
   end
 
+  it 'should pass on any job arguments' do
+    DumbMailer.enqueue(:test => 'test argument').send_mail(3)
+    DumbMailer.should have_queued('klass' => 'DumbMailer', 'method'=> :send_mail, 'args' => [3], :test => 'test argument')
+  end
+
   it 'should be able to override the queue from the mailer class (not default)' do
     DumbMailer2.enqueue.send_mail(3)
     DumbMailer2.should have_queued('klass' => 'DumbMailer2', 'method'=> :send_mail, 'args' => [3]).in(:not_default)
