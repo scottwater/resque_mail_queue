@@ -17,29 +17,30 @@ module Resque
       mailer.send(method, *options['args']).deliver
     end
 
-    def enqueue
-      EnqueueProxy.new(self)
+    def enqueue(options = {})
+      enqueue_to(nil, options)
     end
 
-    def enqueue_to(queue)
-      EnqueueProxy.new(self, queue)
+    def enqueue_to(queue, options = {})
+      EnqueueProxy.new(self, queue, options)
     end
 
     class EnqueueProxy
 
-      def initialize(klass, queue = nil)
+      def initialize(klass, queue, options = {})
         @klass = klass
         @queue = queue
+        @options = options
       end
 
       def method_missing(method, *args, &block)
         if @klass.respond_to? method
-          options = {'klass' => @klass.to_s, 'method' => method, 'args' => args}
+          @options.merge!({'klass' => @klass.to_s, 'method' => method, 'args' => args})
 
           if @queue
-            Resque.enqueue_to(@queue, @klass, options)
+            Resque.enqueue_to(@queue, @klass, @options)
           else
-            Resque.enqueue(@klass, options)
+            Resque.enqueue(@klass, @options)
           end
         else
           super
