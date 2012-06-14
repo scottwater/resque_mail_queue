@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    resque_mail_queue (0.2.0)
+    resque_mail_queue (0.3.0)
       actionmailer (>= 3.1)
       resque (>= 1.1.0)
 
