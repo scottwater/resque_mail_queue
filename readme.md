@@ -2,15 +2,20 @@
 
 This gem makes it very easy to send emails asynchronously with [Resque](http://github.com/defunkt/resque).
 
+
 ## Usage
 
 Add the gem to your gemfile:
 
-	gem 'resque_mail_queue'
+```ruby
+gem 'resque_mail_queue'
+```
 
 Then anytime you want to push an email asynchronously add _enqueue_ before the mailer method.
 
-	UserMailer.enqueue.welcome_email(1)
+```ruby
+UserMailer.enqueue.welcome_email(1)
+```
 
 ## Notes
 
@@ -18,13 +23,13 @@ Then anytime you want to push an email asynchronously add _enqueue_ before the m
 1. You do not have to call deliver
 1. By default, all messages will be placed on a queue called "mail". You can change this by adding a class method called queue on any mailer.
 
-	class MyMailer < ActionMailer::Base
-
-		def self.queue
-			:high_priority
-		end
-
-	end
+```ruby
+class MyMailer < ActionMailer::Base
+  def self.queue
+    :high_priority
+  end
+end
+```
 
 
 ## Why use this instead of ResqueMailer
